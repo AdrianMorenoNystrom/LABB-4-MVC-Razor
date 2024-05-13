@@ -1,0 +1,43 @@
+﻿@model LABB_4.Models.Customer
+
+@{
+    ViewData["Title"] = "Loans";
+}
+
+<h1>Loans for Customer @Model.CustomerName</h1>
+
+<div>
+    @if (Model.BookLoans != null && Model.BookLoans.Any())
+    {
+        <div>
+            <hr />
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Books</th>
+                        <th>Return Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var loan in Model.BookLoans)
+                    {
+                        <tr>
+                            <td>@loan.Book.BookName</td>
+                            <td>@loan.ReturnDate.ToShortDateString()</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>No book loans found for this customer.</p>
+    }
+
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.CustomerId">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
